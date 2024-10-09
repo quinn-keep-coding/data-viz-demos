@@ -1,30 +1,44 @@
-
-import { PostPreview } from "./post-preview";
 import {Post} from "@/src/interfaces/post";
+import {Card, CardActions, CardContent, CardMedia, Container, Grid2, Typography} from "@mui/material";
+import DateFormatter from "@/src/app/_components/date-formatter";
+import Avatar from "@/src/app/_components/avatar";
 
 type Props = {
-  posts: Post[];
+    posts: Post[];
 };
 
-export function MoreStories({ posts }: Props) {
-  return (
-    <section>
-      <h2 className="mb-8 text-5xl md:text-7xl font-bold tracking-tighter leading-tight">
-        More Stories
-      </h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 md:gap-x-16 lg:gap-x-32 gap-y-20 md:gap-y-32 mb-32">
-        {posts.map((post) => (
-          <PostPreview
-            key={post.slug}
-            title={post.title}
-            coverImage={post.coverImage}
-            date={post.date}
-            author={post.author}
-            slug={post.slug}
-            excerpt={post.excerpt}
-          />
-        ))}
-      </div>
-    </section>
-  );
+export function MoreStories({posts}: Props) {
+    return (
+        <Container disableGutters={true} maxWidth={false}>
+            <Typography variant="h2" gutterBottom>
+                More Stories
+            </Typography>
+            <Grid2 container spacing={4}>
+                {posts.map((post, index) => (
+                    <Grid2 key={index} size={4} display="flex">
+                        <Card raised={true} sx={{alignSelf:"stretch", display:"flex", flexDirection:"column"}}>
+                            <CardMedia
+                                sx={{height: 300}}
+                                image={post.coverImage}
+                                title={post.title}
+                            />
+                            <CardContent>
+                                <Typography gutterBottom variant="h5" component="div">
+                                    {post.title}
+                                </Typography>
+                                <DateFormatter dateString={post.date}/>
+                                <Typography variant="body1" sx={{color: 'text.secondary'}}>
+                                    {post.excerpt}
+                                </Typography>
+                            </CardContent>
+                            <CardActions>
+                                <Avatar name={post.author.name} picture={post.author.picture}/>
+                            </CardActions>
+                        </Card>
+                    </Grid2>
+
+                ))}
+            </Grid2>
+        </Container>
+    );
 }

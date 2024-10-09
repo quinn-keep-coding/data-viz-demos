@@ -2,11 +2,7 @@ import fs from "fs";
 import matter from "gray-matter";
 import {join} from "path";
 import {Post} from "@/src/interfaces/post";
-
-export function getPostSlugs() {
-  // return all the files name in the _posts directory: [ 'dynamic-routing.md', 'hello-world.md', 'preview.md' ]
-  return fs.readdirSync(join(process.cwd(), "_posts"));
-}
+import {orderBy} from "lodash";
 
 export function getPostBySlug(slug: string) {
   const realSlug = slug.replace(/\.md$/, "");
@@ -19,8 +15,7 @@ export function getPostBySlug(slug: string) {
 }
 
 export function getAllPosts(): Post[] {
-  return getPostSlugs()
-      .map((slug) => getPostBySlug(slug))
-      // sort posts by date in descending order
-      .sort((post1, post2) => (post1.date > post2.date ? -1 : 1));
+  // return all the files name in the _posts directory: [ 'dynamic-routing.md', 'hello-world.md', 'preview.md' ]
+  const slugs = fs.readdirSync(join(process.cwd(), "_posts"));
+  return orderBy(slugs.map((slug) => getPostBySlug(slug)), ['date'], ['desc']);
 }
