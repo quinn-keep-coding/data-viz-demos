@@ -2,9 +2,9 @@
 import {Post} from "@/src/interfaces/post";
 import {Card, CardActions, CardContent, CardMedia, Container, Grid2, Typography} from "@mui/material";
 import DateFormatter from "@/src/app/_components/date-formatter";
-import Avatar from "@/src/app/_components/avatar";
 import Link from "next/link";
 import {useEffect} from "react";
+import {AvatarIntros} from "@/src/app/_components/avatar-intros";
 
 type Props = {
     posts: Post[];
@@ -49,7 +49,7 @@ export function MoreStories({posts}: Props) {
                                 </Typography>
                             </CardContent>
                             <CardActions>
-                                <Avatar name={post.author.name} picture={post.author.picture}/>
+                                <AvatarIntros author={post.author} />
                             </CardActions>
                         </Card>
                     </Grid2>
