@@ -15,7 +15,15 @@ export function getPostBySlug(slug: string) {
 }
 
 export function getAllPosts(): Post[] {
+  // use fs.readdirSync to get all the files name in the _posts directory, run in build time
+  // however, there is no relationship with getStaticProps
   // return all the files name in the _posts directory: [ 'dynamic-routing.md', 'hello-world.md', 'preview.md' ]
   const slugs = fs.readdirSync(join(process.cwd(), "_posts"));
   return orderBy(slugs.map((slug) => getPostBySlug(slug)), ['date'], ['desc']);
+}
+
+export function getTestJson() {
+  const fullPath = join(join(process.cwd(),"public"), "jsons/test.json");
+  const fileContents = fs.readFileSync(fullPath, "utf8");
+  return JSON.parse(fileContents);
 }

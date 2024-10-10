@@ -1,5 +1,5 @@
-import { Metadata } from "next";
-import { notFound } from "next/navigation";
+import {Metadata} from "next";
+import {notFound} from "next/navigation";
 import markdownToHtml from "@/src/lib/markdownToHtml";
 import {getAllPosts, getPostBySlug} from "@/src/lib/api";
 import Alert from "@/src/app/_components/alert";
@@ -9,7 +9,7 @@ import {PostBody} from "@/src/app/_components/post-body";
 import {CMS_NAME} from "@/src/lib/constants";
 import CommonContainer from "@/src/app/_components/commonContainer";
 
-
+// params are part of generateStaticParams return value, which is matched with the dynamic route segment.
 export default async function Post({ params }: Params) {
   const post = getPostBySlug(params.slug);
 
@@ -62,6 +62,9 @@ export function generateMetadata({ params }: Params): Metadata {
   };
 }
 
+// The generateStaticParams function can be used in combination with dynamic route segments
+// to statically generate routes at build time instead of on-demand at request time.
+// used in server-side.
 export async function generateStaticParams() {
   const posts = getAllPosts();
 

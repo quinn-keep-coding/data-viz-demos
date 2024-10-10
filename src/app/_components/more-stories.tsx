@@ -3,15 +3,14 @@ import {Post} from "@/src/interfaces/post";
 import {Card, CardActions, CardContent, CardMedia, Container, Grid2, Typography} from "@mui/material";
 import DateFormatter from "@/src/app/_components/date-formatter";
 import Avatar from "@/src/app/_components/avatar";
-import {useEffect, useState} from "react";
+import Link from "next/link";
+import {useEffect} from "react";
 
 type Props = {
     posts: Post[];
 };
 
 export function MoreStories({posts}: Props) {
-    const [jsonData, setJsonData] = useState({name: ""});
-
     useEffect(() => {
         fetch('/jsons/test.json')
             .then(response => {
@@ -20,7 +19,7 @@ export function MoreStories({posts}: Props) {
                 }
                 return response.json();
             })
-            .then(data => setJsonData(data))
+            .then(data => console.log("fetch from public folder:", data))
             .catch(error => console.error('Error fetching JSON:', error));
     }, []);
 
@@ -28,9 +27,6 @@ export function MoreStories({posts}: Props) {
         <Container disableGutters={true} maxWidth={false}>
             <Typography variant="h2" gutterBottom>
                 More Stories
-            </Typography>
-            <Typography variant="body1" gutterBottom>
-                {jsonData.name}
             </Typography>
             <Grid2 container spacing={4}>
                 {posts.map((post, index) => (
@@ -42,9 +38,11 @@ export function MoreStories({posts}: Props) {
                                 title={post.title}
                             />
                             <CardContent>
-                                <Typography gutterBottom variant="h5" component="div">
-                                    {post.title}
-                                </Typography>
+                                <Link href={`/posts/${post.slug}`} className="hover:underline">
+                                    <Typography gutterBottom variant="h5" component="div">
+                                        {post.title}
+                                    </Typography>
+                                </Link>
                                 <DateFormatter dateString={post.date}/>
                                 <Typography variant="body1" sx={{color: 'text.secondary'}}>
                                     {post.excerpt}
