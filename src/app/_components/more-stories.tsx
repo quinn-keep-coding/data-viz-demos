@@ -1,10 +1,11 @@
 "use client";
 import {Post} from "@/src/interfaces/post";
-import {Card, CardActions, CardContent, CardMedia, Container, Grid2, Typography} from "@mui/material";
+import {Box, Card, CardActions, CardContent, CardMedia, Container, Grid2, Typography} from "@mui/material";
 import DateFormatter from "@/src/app/_components/date-formatter";
 import Link from "next/link";
 import {useEffect} from "react";
 import {AvatarIntros} from "@/src/app/_components/avatar-intros";
+import BarChart from "@/src/app/_components/bar-chart";
 
 type Props = {
     posts: Post[];
@@ -28,6 +29,15 @@ export function MoreStories({posts}: Props) {
             <Typography variant="h2" gutterBottom>
                 More Stories
             </Typography>
+            <Box mb={5}>
+                <BarChart data={[
+                    { label: 'A', value: 10 },
+                    { label: 'B', value: 20 },
+                    { label: 'C', value: 15 },
+                    { label: 'D', value: 30 },
+                    { label: 'E', value: 25 },
+                ]}/>
+            </Box>
             <Grid2 container spacing={4}>
                 {posts.map((post, index) => (
                     <Grid2 key={index} size={4} display="flex">

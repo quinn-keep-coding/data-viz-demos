@@ -13,6 +13,7 @@
     "@emotion/styled": "^11.13.0",
     "@mui/material": "^6.1.2",
     "classnames": "^2.5.1",
+    "d3": "^7.9.0",
     "date-fns": "^3.6.0",
     "gray-matter": "^4.0.3",
     "lodash": "^4.17.21",
@@ -23,6 +24,7 @@
     "remark-html": "^16.0.1"
   },
   "devDependencies": {
+    "@types/d3": "^7.4.3",
     "@types/lodash": "^4.17.10",
     "@types/node": "^20",
     "@types/react": "^18",
